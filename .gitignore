@@ -34,3 +34,8 @@ variables.tf
 *.env
 ### Exclude the blank EDIT-ME instruction env files
 !EDIT-ME*.env
+
+
+## JAVA (boooooooo)
+lib
+.idea
