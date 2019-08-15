@@ -1,0 +1,36 @@
+# Node 
+### Module directory
+node_modules
+### Compiled files
+dist/
+
+# Terraform
+### Compiled files
+*.tfstate
+*.tfstate.backup
+### Module directory
+.terraform/
+### Sensitive Files
+variables.tf
+*node-*.tf
+
+# Package Files 
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# OpenSSH generated files
+*.key
+*.pem
+*.crt
+*.keystore
+*.srl
+
+# Environment variables
+*.env
+### Exclude the blank EDIT-ME instruction env files
+!EDIT-ME*.env

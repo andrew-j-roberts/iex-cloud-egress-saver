@@ -1,0 +1,69 @@
+---
+- hosts: all
+  remote_user: ubuntu
+  become: true
+  tasks:
+    #
+    # Install Docker
+    #
+    - name: Install aptitude using apt
+      apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
+
+    - name: Install required system packages
+      apt: name={{ item }} state=latest update_cache=yes
+      loop: [ 'apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common', 'python3-pip', 'virtualenv', 'python3-setuptools']
+
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker Repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu bionic stable
+        state: present
+
+    - name: Update apt and install docker-ce
+      apt: update_cache=yes name=docker-ce state=latest
+
+    - name: Install Docker Module for Python
+      pip:
+        name: docker
+     
+    - name: Create "docker" group
+      group:
+        name: app
+        state: present
+    
+    - name: Add remote "ubuntu" user to "docker" group
+      user:
+        name: ubuntu
+        group: app
+        append: yes
+
+    - name: Ensure docker deamon is running
+      service:
+        name: docker
+        state: started
+      become: true
+
+    #
+    # Copy, build, and run consumer application
+    #
+    # - name: provision consumer-app on server
+    #   copy:
+    #     src: ../consumer-node-app/
+    #     dest: app
+    #     owner: ubuntu
+    #     group: app
+    #     mode: '0644'
+    
+    # - name: build consumer-app image
+    #   command: docker build -t consumer-app .
+    #   args:
+    #     chdir: app
+
+    # - name: run the consumer-app container
+    #   command: docker run -d -e QUEUE_NAME={{QUEUE_NAME}} -v /home/ubuntu/app/.env:/usr/app/.env consumer-app
+    #   args:
+    #     chdir: app
