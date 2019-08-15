@@ -16,7 +16,7 @@ if (result.error) {
 import { makeRequest } from "./HttpClient";
 import { symbolList } from "./symbolList";
 import RESTPollingClient from "./RESTPollingClient";
-import SolacePollingSubscriberClient from "./SolacePollingSubscriberClient";
+// import SolacePollingSubscriberClient from "./SolacePollingSubscriberClient";
 
 /**
  * Helper functions
@@ -57,11 +57,11 @@ async function start(symbolCount, pollingInterval, testDuration) {
   }
   // initialize clients
   let restPollingClient = RESTPollingClient(urls, pollingInterval);
-  let solacePollingSubscriberClient = SolacePollingSubscriberClient(topics);
+  //let solacePollingSubscriberClient = SolacePollingSubscriberClient(topics);
   try {
     // start receiving clients
     await restPollingClient.start();
-    await solacePollingSubscriberClient.start();
+    // await solacePollingSubscriberClient.start(); ---> Replaced by JAVA APP for SMF compatability BOOOOO
     // send start signal to SolacePollingPublisherClient
     const requestParams = {
       baseUrl: process.env.SOLACE_APP_BASE_ENDPOINT,
