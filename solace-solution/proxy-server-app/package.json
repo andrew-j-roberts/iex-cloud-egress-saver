@@ -14,7 +14,7 @@
     "axios": "^0.19.0",
     "core-js": "^3.1.4",
     "dotenv": "^8.0.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "regenerator-runtime": "^0.13.2",
     "solclientjs": "^10.3.0"
   },
